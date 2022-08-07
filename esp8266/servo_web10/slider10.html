@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<h2>Servo Control Page</h2>
+
+    <table width = "100%">
+        <tbody>
+          <tr>
+            <td>Servo 0 : <span id="servo0Text">90</span></td>
+			<td>Servo 1 : <span id="servo1Text">90</span></td>
+		  </tr>
+          <tr>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider0" onchange="servoWrite(0,this.value)"></td>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider1" onchange="servoWrite(1,this.value)"></td>
+          </tr>
+          <tr>
+			<td><br></td><td><br></td>
+          </tr>
+          <tr>
+            <td>Servo 2 : <span id="servo2Text">90</span></td>
+            <td>Servo 3 : <span id="servo3Text">90</span></td>
+          </tr>
+          <tr>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider2" onchange="servoWrite(2,this.value)"></td>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider3" onchange="servoWrite(3,this.value)"></td>
+		  </tr>
+          <tr>
+			<td><br></td><td><br></td>
+          </tr>
+          <tr>
+            <td>Servo 4 : <span id="servo4Text">90</span></td>
+            <td>Servo 5 : <span id="servo5Text">90</span></td>
+          </tr>
+          <tr>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider4" onchange="servoWrite(4,this.value)"></td>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider5" onchange="servoWrite(5,this.value)"></td>
+		  </tr>
+          <tr>
+			<td><br></td><td><br></td>
+          </tr>
+          <tr>
+            <td>Servo 6 : <span id="servo6Text">90</span></td>
+            <td>Servo 7 : <span id="servo7Text">90</span></td>
+          </tr>
+          <tr>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider6" onchange="servoWrite(6,this.value)"></td>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider7" onchange="servoWrite(7,this.value)"></td>
+		  </tr>
+          <tr>
+			<td><br></td><td><br></td>
+          </tr>
+          <tr>
+            <td>Servo 8 : <span id="servo8Text">90</span></td>
+            <td>Servo 9 : <span id="servo9Text">90</span></td>
+          </tr>
+          <tr>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider8" onchange="servoWrite(8,this.value)"></td>
+            <td><input type="range" style="width:90%;" min="0" max="180" id="servoSlider9" onchange="servoWrite(9,this.value)"></td>
+          </tr>		  		  		  
+        </tbody>
+      </table>
+	
+	<script>
+		var slider0 = document.getElementById("servoSlider0");
+		var slider1 = document.getElementById("servoSlider1");
+		var slider2 = document.getElementById("servoSlider2");
+		var slider3 = document.getElementById("servoSlider3");
+		var slider4 = document.getElementById("servoSlider4");
+		var slider5 = document.getElementById("servoSlider5");
+		var slider6 = document.getElementById("servoSlider6");
+		var slider7 = document.getElementById("servoSlider7");
+		var slider8 = document.getElementById("servoSlider8");
+		var slider9 = document.getElementById("servoSlider9");
+		var servoPos0 = document.getElementById("servo0Text");
+		var servoPos1 = document.getElementById("servo1Text");
+		var servoPos2 = document.getElementById("servo2Text");
+		var servoPos3 = document.getElementById("servo3Text");
+		var servoPos4 = document.getElementById("servo4Text");
+		var servoPos5 = document.getElementById("servo5Text");
+		var servoPos6 = document.getElementById("servo6Text");
+		var servoPos7 = document.getElementById("servo7Text");
+		var servoPos8 = document.getElementById("servo8Text");
+		var servoPos9 = document.getElementById("servo9Text");
+		slider0.oninput = function() { 
+			slider0.value = this.value;
+			servoPos0.innerHTML = this.value;
+		}
+		slider1.oninput = function() { 
+			slider1.value = this.value;
+			servoPos1.innerHTML = this.value;
+		}
+		slider2.oninput = function() { 
+			slider2.value = this.value;
+			servoPos2.innerHTML = this.value;
+		}
+		slider3.oninput = function() { 
+			slider3.value = this.value;
+			servoPos3.innerHTML = this.value;
+		}
+		slider4.oninput = function() { 
+			slider4.value = this.value;
+			servoPos4.innerHTML = this.value;
+		}
+		slider5.oninput = function() { 
+			slider5.value = this.value;
+			servoPos5.innerHTML = this.value;
+		}
+		slider6.oninput = function() { 
+			slider6.value = this.value;
+			servoPos6.innerHTML = this.value;
+		}
+		slider7.oninput = function() { 
+			slider7.value = this.value;
+			servoPos7.innerHTML = this.value;
+		}
+		slider8.oninput = function() { 
+			slider8.value = this.value;
+			servoPos8.innerHTML = this.value;
+		}
+		slider9.oninput = function() { 
+			slider9.value = this.value;
+			servoPos9.innerHTML = this.value;
+		}
+		$.ajaxSetup({timeout:1000});
+		function servoWrite(num, pos) {
+			$.get("/num=" + num + "," + "pos=" + pos + "d");
+			{Connection: close};
+		}
+    </script>  
+</body>
+</html>
