@@ -8,14 +8,7 @@ SCREEN_HEIGHT = 500
 SCREEN_WIDTH = 700
 
 class SimpleEngine3D():
-    meshCube = np.array([
-        [[0.,0.,0.],[0.,1.,0.],[1.,1.,0.]], [[0.,0.,0.],[1.,1.,0.],[1.,0.,0.]], #south
-        [[1.,0.,0.],[1.,1.,0.],[1.,1.,1.]], [[1.,0.,0.],[1.,1.,1.],[1.,0.,1.]], #east
-        [[1.,0.,1.],[1.,1.,1.],[0.,1.,1.]], [[1.,0.,1.],[0.,1.,1.],[0.,0.,1.]], #north
-        [[0.,0.,1.],[0.,1.,1.],[0.,1.,0.]], [[0.,0.,1.],[0.,1.,0.],[0.,0.,0.]], #west
-        [[0.,1.,0.],[0.,1.,1.],[1.,1.,1.]], [[0.,1.,0.],[1.,1.,1.],[1.,1.,0.]], #top
-        [[1.,0.,1.],[0.,0.,1.],[0.,0.,0.]], [[1.,0.,1.],[0.,0.,0.],[1.,0.,0.]], #bottom
-    ])
+    meshCube = []
 
     mat4x4 = np.zeros((4,4))
     theta = 0.0
@@ -61,10 +54,13 @@ class SimpleEngine3D():
 
 
     def multiplyMat(self, i, mat):
+        '''
         o = np.zeros(3)
         o[0] = i[0] * mat[0,0] + i[1] * mat[1,0] + i[2] * mat[2,0] + mat[3,0]
         o[1] = i[0] * mat[0,1] + i[1] * mat[1,1] + i[2] * mat[2,1] + mat[3,1]
         o[2] = i[0] * mat[0,2] + i[1] * mat[1,2] + i[2] * mat[2,2] + mat[3,2]
+        '''
+        o = np.dot(i,mat[:3, :3])        
         w = i[0] * mat[0,3] + i[1] * mat[1,3] + i[2] * mat[2,3] + mat[3,3]
 
         if w != 0:
@@ -182,7 +178,7 @@ engine = SimpleEngine3D()
 running = True
 cnt = 0.0
 
-engine.loadFromObjFile("Graphics/3D/basic/VideoShip.obj")
+engine.loadFromObjFile("Graphics/3D/projection/VideoShip.obj")
 
 while running == True:
     engine.draw(1)
