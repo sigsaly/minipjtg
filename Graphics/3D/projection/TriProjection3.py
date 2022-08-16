@@ -34,13 +34,12 @@ class SimpleEngine3D():
         self.mat4x4[3,3] = 0.0
 
     def multiplyMat(self, i, mat):
-        '''
+
         o = np.zeros(3)
         o[0] = i[0] * mat[0,0] + i[1] * mat[1,0] + i[2] * mat[2,0] + mat[3,0]
         o[1] = i[0] * mat[0,1] + i[1] * mat[1,1] + i[2] * mat[2,1] + mat[3,1]
         o[2] = i[0] * mat[0,2] + i[1] * mat[1,2] + i[2] * mat[2,2] + mat[3,2]
-        '''
-        o = np.dot(i,mat[:3, :3])
+
         w = i[0] * mat[0,3] + i[1] * mat[1,3] + i[2] * mat[2,3] + mat[3,3]
 
         if w != 0:
@@ -78,7 +77,7 @@ class SimpleEngine3D():
         rotx = np.zeros((3,3))
         projected = np.zeros((3,3))
         pointers = np.zeros((3,2))
-        #print(pjtd)
+
         for tri in self.meshCube:
             rotz[0] = self.multiplyMat(tri[0], matRotZ) # point0 (x,y,z)
             rotz[1] = self.multiplyMat(tri[1], matRotZ) # point1
@@ -131,7 +130,6 @@ class SimpleEngine3D():
                 pointers[1][1] = (projected[1][1] + 1.0) * 0.5 * SCREEN_HEIGHT
                 pointers[2][0] = (projected[2][0] + 1.0) * 0.5 * SCREEN_WIDTH
                 pointers[2][1] = (projected[2][1] + 1.0) * 0.5 * SCREEN_HEIGHT
-                #print(ptrs)
 
                 pygame.draw.polygon(screen,(255,255,255),pointers,1)    
         pygame.display.update()        

@@ -54,12 +54,12 @@ class SimpleEngine3D():
 
 
     def multiplyMat(self, i, mat):
-        '''
+
         o = np.zeros(3)
         o[0] = i[0] * mat[0,0] + i[1] * mat[1,0] + i[2] * mat[2,0] + mat[3,0]
         o[1] = i[0] * mat[0,1] + i[1] * mat[1,1] + i[2] * mat[2,1] + mat[3,1]
         o[2] = i[0] * mat[0,2] + i[1] * mat[1,2] + i[2] * mat[2,2] + mat[3,2]
-        '''
+
         o = np.dot(i,mat[:3, :3])        
         w = i[0] * mat[0,3] + i[1] * mat[1,3] + i[2] * mat[2,3] + mat[3,3]
 
@@ -98,7 +98,6 @@ class SimpleEngine3D():
         rotx = np.zeros((3,3))
         projected = np.zeros((3,3))
         pointers = np.zeros((3,2))
-        #print(pjtd)
         for tri in self.meshCube:
             rotz[0] = self.multiplyMat(tri[0], matRotZ) # point0 (x,y,z)
             rotz[1] = self.multiplyMat(tri[1], matRotZ) # point1
@@ -134,7 +133,6 @@ class SimpleEngine3D():
             normal[0] /= l
             normal[1] /= l
             normal[2] /= l
-            #print(normal)
 
             #if normal[2] < 0:
             if (normal[0]*(rotx[0][0]-self.vCamera[0])
@@ -164,8 +162,6 @@ class SimpleEngine3D():
                 pointers[1][1] = (projected[1][1] + 1.0) * 0.5 * SCREEN_HEIGHT
                 pointers[2][0] = (projected[2][0] + 1.0) * 0.5 * SCREEN_WIDTH
                 pointers[2][1] = (projected[2][1] + 1.0) * 0.5 * SCREEN_HEIGHT
-                #print(ptrs)
-                print(color)
                 pygame.draw.polygon(screen,(color,color,color),pointers,0)    
         pygame.display.update()        
         return True
@@ -179,6 +175,7 @@ running = True
 cnt = 0.0
 
 engine.loadFromObjFile("Graphics/3D/projection/VideoShip.obj")
+#engine.loadFromObjFile("VideoShip.obj")
 
 while running == True:
     engine.draw(1)
