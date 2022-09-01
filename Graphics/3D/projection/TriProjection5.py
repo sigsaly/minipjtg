@@ -163,6 +163,7 @@ class SimpleEngine3D():
                 pointers[2][0] = (projected[2][0] + 1.0) * 0.5 * SCREEN_WIDTH
                 pointers[2][1] = (projected[2][1] + 1.0) * 0.5 * SCREEN_HEIGHT
                 pygame.draw.polygon(screen,(color,color,color),pointers,0)    
+                pygame.draw.polygon(screen,(0,0,0),pointers,1)    
         pygame.display.update()        
         return True
    
@@ -174,7 +175,7 @@ engine = SimpleEngine3D()
 running = True
 cnt = 0.0
 
-engine.loadFromObjFile("Graphics/3D/projection/VideoShip.obj")
+engine.loadFromObjFile("minipjtg/Graphics/3D/projection/VideoShip.obj")
 #engine.loadFromObjFile("VideoShip.obj")
 
 while running == True:

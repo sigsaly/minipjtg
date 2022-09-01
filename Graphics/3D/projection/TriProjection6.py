@@ -1,6 +1,4 @@
 #videoship
-
-from ipaddress import v6_int_to_packed
 import pygame
 import math, time
 import numpy as np
