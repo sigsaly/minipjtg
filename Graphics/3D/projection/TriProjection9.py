@@ -38,13 +38,14 @@ class Mesh():
 
 class SimpleEngine3D():
     theta = 0.0
+    yaw = 0.0
     vCamera = np.zeros(4)
     mesh = Mesh()
 
     def __init__(self):
         fNear = 0.1
-        fFar = 100.0
-        fFov = 50.0
+        fFar = 1000.0
+        fFov = 90.0
         fAspectRatio = SCREEN_HEIGHT/SCREEN_WIDTH
         self.matProj = self.MatProjection(fFov, fAspectRatio, fNear, fFar)
 
@@ -169,21 +170,33 @@ class SimpleEngine3D():
         l = self.LenVector(v)
         return [v[0]/l, v[1]/l, v[2]/l, 1.0]
 
+    def moveForward(self, val):
+        vForward = self.MultVector(self.vLookDir, val)
+        self.vCamera = self.AddVectors(self.vCamera, vForward)
+
+    def moveBackward(self, val):
+        vForward = self.MultVector(self.vLookDir, val)
+        self.vCamera = self.SubVectors(self.vCamera, vForward)
+
     def draw(self, elaptime):
         screen.fill((0, 0, 180))
 
         # rotation matrix
         #self.theta += elaptime
         fRad = self.theta * math.pi / 180.0 
-        matRotZ = self.RotationZ(fRad)
+        matRotZ = self.RotationZ(math.pi)
         matRotX = self.RotationX(fRad * 0.5)
-        matTrans = self.Translation(0, 0, 10)
+        matTrans = self.Translation(0, 0, 5)
         matWorld = self.MultiplyMat(matRotZ, matRotX)
         matWorld = self.MultiplyMat(matWorld, matTrans)
 
-        vLookDir = [0,0,1,1]
+        #self.vLookDir = [0,0,1,1]
         vUp = [0,1,0,1]        
-        vTarget = self.AddVectors(self.vCamera, vLookDir)
+        #vTarget = self.AddVectors(self.vCamera, self.vLookDir)
+        vTarget = [0,0,1,1]
+        matCamRot = self.RotationY(self.yaw)
+        self.vLookDir = self.MultiplyVecMat(vTarget, matCamRot)
+        vTarget = self.AddVectors(self.vCamera, self.vLookDir)
 
         matCamera = self.MatPointAt(self.vCamera, vTarget, vUp)
         matView = self.MatQuickInverse(matCamera)
@@ -276,10 +289,10 @@ cnt = 0.0
 #engine.loadFromObjFile("VideoShip.obj")
 #engine.loadFromObjFile("teapot.obj")
 #engine.loadFromObjFile("mountains.obj")
-engine.loadFromObjFile("axis.obj")
+engine.loadFromObjFile("Graphics/3D/projection/axis.obj")
 
 while running == True:
-    engine.draw(1)
+    engine.draw(0)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -292,6 +305,14 @@ while running == True:
                 engine.vCamera[0] += 1.0  
             elif event.key == pygame.K_LEFT:
                 engine.vCamera[0] -= 1.0  
+            elif event.key == pygame.K_a:
+                engine.yaw -= 1.0  
+            elif event.key == pygame.K_d:
+                engine.yaw += 1.0  
+            elif event.key == pygame.K_w:
+                engine.moveForward(1)  
+            elif event.key == pygame.K_s:
+                engine.moveBackward(1)  
 
 
 
